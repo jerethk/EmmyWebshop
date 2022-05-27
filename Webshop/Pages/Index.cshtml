@@ -1,0 +1,44 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!-- <script src="~/js/mainpage.js" defer></script> -->
+
+<div class="text-center">
+    <h1 class="display-4"></h1>
+    <p>
+    </p>
+</div>
+
+<partial name="_shopmenu.cshtml" />
+
+<br />
+<div id="product_display">
+    @{
+        if (Model.productList != null)
+        {
+        <table>
+            <tr>
+                <th width="200px">Product description</th>
+                <th width="200px">Price</th>
+                <th width="200px"></th>
+            </tr>
+
+            @foreach (models.Product p in Model.productList)
+            {
+            <tr>
+                <td>@p.Description</td>
+                <td>$ @p.Price</td>
+                <td><img src="~/images/@p.Image" width="80"></td>
+                <td><a href="index?productCategory=@Model.productCategory&addToCart=@p.ProductCode">Add to cart</a></td>
+            </tr>
+            }
+
+        </table>
+        }
+
+    }
+
+</div>

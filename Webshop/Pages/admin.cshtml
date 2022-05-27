@@ -1,0 +1,77 @@
+﻿@page
+@model Webshop.Pages.adminModel
+@{
+}
+
+<h4>Admin</h4>
+
+<p>
+    <a href="Index">Back to home</a>
+</p>
+
+<ul>
+    <li><a href="./admin?view=customers">View customers</a></li>
+    <li><a href="./admin?view=transactions">View transactions</a></li>
+    <li></li>
+</ul>
+
+
+<p>
+    @{
+        if (Model.view == "customers" && Model.customerList != null)
+        {
+        <p>Total customers: @Model.customerList.Count</p>
+
+        <table border="1">
+
+            @foreach (models.Customer c in Model.customerList)
+            {
+                <tr>
+                    <td>
+                        @c.CustomerId
+                    </td>
+                    <td>
+                        @c.Firstname
+                    </td>
+                    <td>
+                        @c.Lastname
+                    </td>
+                </tr>
+            }
+
+        </table>
+        }
+
+        if (Model.view == "transactions" && Model.transactionList != null)
+        {
+            <table border="1">
+                <tr>
+                    <th>Date</th>
+                    <th>Inv no.</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                </tr>
+
+            @foreach (models.Transaction t in Model.transactionList)
+            {
+                <tr>
+                    <td>
+                        @t.Date
+                    </td>
+                    <td>
+                        @t.InvoiceNo
+                    </td>
+                    <td>
+                        @t.Customer
+                    </td>
+                    <td>
+                        @t.Amount
+                    </td>
+                </tr>
+            }
+
+        </table>
+        }
+
+    }
+    </p>

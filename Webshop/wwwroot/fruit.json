@@ -1,0 +1,34 @@
+{
+    "products": [
+        {
+            "name": "Grapes",
+            "price": 3.50,
+            "qty": "1 kg",
+            "pic": "grapes.jpg"
+        },
+        {
+            "name": "Watermelon",
+            "price": 2.30,
+            "qty": "1",
+            "pic": "watermelon.jpg"
+        },
+        {
+            "name": "Bananas",
+            "price": 1.40,
+            "qty": "1 kg",
+            "pic": "banana.jpg"
+        },
+        {
+            "name": "Green apple",
+            "price": 2.30,
+            "qty": "1 kg",
+            "pic": "apple.jpg"
+        },
+        {
+            "name": "Orange",
+            "price": 2.90,
+            "qty": "1 kg",
+            "pic": "orange.jpg"
+        }
+    ]
+}
