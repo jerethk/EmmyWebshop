@@ -10,16 +10,16 @@
 </p>
 
 <ul>
-    <li><a href="./admin?view=customers">View customers</a></li>
-    <li><a href="./admin?view=transactions">View transactions</a></li>
-    <li></li>
+    <li><a href="admin?viewType=customers">View customers</a></li>
+    <li><a href="admin?viewType=transactions">View transactions</a></li>
+
 </ul>
 
 
-<p>
-    @{
-        if (Model.view == "customers" && Model.customerList != null)
-        {
+
+@{
+    if (Model.viewType == "customers" && Model.customerList != null)
+    {
         <p>Total customers: @Model.customerList.Count</p>
 
         <table border="1">
@@ -40,17 +40,51 @@
             }
 
         </table>
-        }
+    }
 
-        if (Model.view == "transactions" && Model.transactionList != null)
+    if (Model.viewType == "transactions" && Model.transactionList != null)
+    {
+        <form method="post">
+            <label asp-for="invNumber">Enter invoice number:</label>
+            <input type="number" asp-for="invNumber" min="0" />
+            <input type="submit" value="Go" />
+        </form>
+
+        @if (Model.invNumber != null && Model.invoiceItemList.Count > 0)
         {
+            <p>Invoice @Model.invNumber</p>
+
             <table border="1">
                 <tr>
-                    <th>Date</th>
-                    <th>Inv no.</th>
-                    <th>Customer</th>
-                    <th>Amount</th>
+                    <th>Item</th>
+                    <th>Price</th>
                 </tr>
+
+                @foreach (InvoiceItemWithPrice item in Model.invoiceItemList)
+                {
+                    <tr>
+                        <td>@item.productName</td>
+                        <td>@item.productCost</td>
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            <p>Invoice @Model.invNumber not found</p>
+        }
+
+        <br />
+        <br />
+
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Inv no.</th>
+                <th>Customer</th>
+                <th>Amount</th>
+            </tr>
 
             @foreach (models.Transaction t in Model.transactionList)
             {
@@ -71,7 +105,7 @@
             }
 
         </table>
-        }
-
     }
-    </p>
+
+}
+

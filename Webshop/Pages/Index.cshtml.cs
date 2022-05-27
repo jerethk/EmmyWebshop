@@ -25,7 +25,7 @@ namespace Webshop.Pages
             _logger = logger;
         }
 
-        public async void OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             // Load products from database
             shopContext = new models.myshopContext();
@@ -37,6 +37,7 @@ namespace Webshop.Pages
                                select p).ToList();
             }
 
+            return Page();
         }
     }
 }
