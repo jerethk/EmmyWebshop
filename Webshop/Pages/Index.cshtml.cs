@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using Webshop.models;
@@ -15,9 +16,9 @@ namespace Webshop.Pages
     public class IndexModel : PageModel
     {
         private myshopContext shopContext;
-        public List<Product> productList;
-        public List<Customer> customerList;
-        public List<Product> shoppingCart;
+        public List<Product> productList { get; set; }
+        public List<Customer> customerList { get; set; }
+        public List<Product> shoppingCart { get; set; }
 
         [FromQuery]
         public string productCategory { get; set; }
@@ -53,10 +54,31 @@ namespace Webshop.Pages
 
             /////////////////////
             SessionExtensions.SetString(HttpContext.Session, "testsession", "mysessionstring");
-            
-            if (addToCart != "")
+
+            if (addToCart != null)
             {
+                // get shopping cart (List) from session state
+                if (HttpContext.Session.GetString("cart") != null)
+                {
+                    shoppingCart = JsonSerializer.Deserialize<List<Product>>(HttpContext.Session.GetString("cart"));
+                }
                 
+                var q = (from p in productList
+                         where p.ProductCode == addToCart
+                         select p).ToList();
+
+                if (q.Count > 0)
+                {
+                    if (shoppingCart == null)
+                    {
+                        shoppingCart = new List<Product>();
+                    }
+                    shoppingCart.Add(q[0]);
+                }
+
+                // serialise shopping cart and store in session
+                string jsonCart = JsonSerializer.Serialize(shoppingCart);
+                HttpContext.Session.SetString("cart", jsonCart);
             }
 
             return Page();

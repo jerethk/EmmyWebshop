@@ -26,14 +26,11 @@
 <partial name="_shopmenu.cshtml" />
 
 @{
-    /*
-    byte[] myarray = new byte[10];
-    HttpContext.Session.TryGetValue("sessiontest", out myarray);
-
-    <p>@myarray[0] @myarray[1] @myarray[2]  </p>
-    */
+    if (Model.addToCart != "")
+    {
+        <div>@Microsoft.AspNetCore.Http.SessionExtensions.GetString(HttpContext.Session, "cart")</div>
+    }
 }
-
 <br />
 <div id="product_display">
     @{
