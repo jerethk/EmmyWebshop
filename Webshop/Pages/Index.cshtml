@@ -12,31 +12,51 @@
     </p>
 </div>
 
+<form method="post">
+    <label asp-for="customerId">Select customer: </label>
+    <select asp-for="customerId">
+        @foreach (models.Customer c in Model.customerList)
+        {
+            <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
+        }
+    </select>
+</form>
+
+<br />
 <partial name="_shopmenu.cshtml" />
+
+@{
+    /*
+    byte[] myarray = new byte[10];
+    HttpContext.Session.TryGetValue("sessiontest", out myarray);
+
+    <p>@myarray[0] @myarray[1] @myarray[2]  </p>
+    */
+}
 
 <br />
 <div id="product_display">
     @{
         if (Model.productList != null)
         {
-        <table>
-            <tr>
-                <th width="200px">Product description</th>
-                <th width="200px">Price</th>
-                <th width="200px"></th>
-            </tr>
+            <table>
+                <tr>
+                    <th width="200px">Product description</th>
+                    <th width="200px">Price</th>
+                    <th width="200px"></th>
+                </tr>
 
-            @foreach (models.Product p in Model.productList)
-            {
-            <tr>
-                <td>@p.Description</td>
-                <td>$ @p.Price</td>
-                <td><img src="~/images/@p.Image" width="80"></td>
-                <td><a href="index?productCategory=@Model.productCategory&addToCart=@p.ProductCode">Add to cart</a></td>
-            </tr>
-            }
+                @foreach (models.Product p in Model.productList)
+                {
+                    <tr>
+                        <td>@p.Description</td>
+                        <td>$ @p.Price</td>
+                        <td><img src="~/images/@p.Image" width="80"></td>
+                        <td><a href="index?productCategory=@Model.productCategory&addToCart=@p.ProductCode">Add to cart</a></td>
+                    </tr>
+                }
 
-        </table>
+            </table>
         }
 
     }

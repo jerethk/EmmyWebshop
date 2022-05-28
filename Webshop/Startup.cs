@@ -24,6 +24,15 @@ namespace Webshop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            // Add session state service
+            services.AddDistributedMemoryCache();
+            services.AddSession((options) =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(1000);       // session timeout
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +55,8 @@ namespace Webshop
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

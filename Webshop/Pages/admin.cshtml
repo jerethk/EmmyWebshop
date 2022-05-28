@@ -16,7 +16,6 @@
 </ul>
 
 
-
 @{
     if (Model.viewType == "customers" && Model.customerList != null)
     {
@@ -63,7 +62,7 @@
                 @foreach (InvoiceItemWithPrice item in Model.invoiceItemList)
                 {
                     <tr>
-                        <td>@item.productName</td>
+                        <td>@item.productCode</td>
                         <td>@item.productCost</td>
                     </tr>
                 }
