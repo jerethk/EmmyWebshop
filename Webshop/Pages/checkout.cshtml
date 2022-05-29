@@ -1,0 +1,33 @@
+﻿@page
+@model Webshop.Pages.checkoutModel
+@{
+}
+
+<h4>Checkout</h4>
+
+<p>
+    <a asp-page="shoppingcart">Back to shopping cart</a>
+</p>
+
+<table>
+    <tr>
+        <th>Total: </th>
+        <td>@Model.cartTotal</td>
+    </tr>
+</table>
+
+<br />
+<form>
+    <label asp-for="customerId">Select customer: </label>
+    <select asp-for="customerId">
+        @foreach (models.Customer c in Model.customerList)
+        {
+            <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
+        }
+    </select>
+</form>
+
+<br />
+<form method="post">
+    <input type="submit" value="CHECK OUT" />
+</form>
