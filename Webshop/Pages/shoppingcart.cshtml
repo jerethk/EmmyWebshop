@@ -6,46 +6,65 @@
 <h4>Shopping Cart</h4>
 
 <p>
-    <a href="Index">Back to home</a>
+    <a href="Index">Back to shopping</a>
 </p>
 
 @{
-    var cart = Microsoft.AspNetCore.Http.SessionExtensions.GetString(HttpContext.Session, "cart");
-
-
-    if (cart != null)
+    if (Model.cartItems == null || Model.cartItems.Count == 0)
     {
-        //<div>@cart</div>
+        <div>Cart is empty</div>
     }
+    else
+    {
 
-    <table border="1">
-        <tr>
-            <th>Item</th>
-            <th>Count</th>
-            <th>Unit price</th>
-            <th>Total price</th>
-        </tr>
-
-
-        @foreach (ShoppingCartItem item in Model.cartItems)
-        {
+        <table border="1">
             <tr>
-                <td>
-                    @item.product.Description
-                </td>
-                <td>
-                    @item.count
-                </td>
-                <td>
-                    @item.product.Price
-                </td>
-                <td>
-                    @(item.product.Price * item.count)
-                </td>
+                <th width="200">Item</th>
+                <th width="80">Count</th>
+                <th width="80">Unit price</th>
+                <th width="80">Price</th>
             </tr>
-        }
 
-    </table>
 
+            @foreach (ShoppingCartItem item in Model.cartItems)
+            {
+                <tr>
+                    <td>
+                        @item.product.Description
+                    </td>
+                    <td>
+                        @item.count
+                    </td>
+                    <td>
+                        @item.product.Price
+                    </td>
+                    <td>
+                        @(item.product.Price * item.count)
+                    </td>
+                    <td>
+                        <a href="shoppingcart?action=add&product=@item.product.ProductCode">Add</a> |
+                        <a href="shoppingcart?action=remove&product=@item.product.ProductCode">Remove</a>
+                        
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+
+        <table>
+            <tr>
+                <th>Total: </th>
+                <td>@Model.cartTotal</td>
+            </tr>
+        </table>
+
+        <br />
+        <br />
+        <div>
+                <a href="">Checkout</a>
+        </div>
+
+    }
 
 }
