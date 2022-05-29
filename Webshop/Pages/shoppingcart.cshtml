@@ -1,0 +1,51 @@
+﻿@page
+@model Webshop.Pages.shoppingcartModel
+@{
+}
+
+<h4>Shopping Cart</h4>
+
+<p>
+    <a href="Index">Back to home</a>
+</p>
+
+@{
+    var cart = Microsoft.AspNetCore.Http.SessionExtensions.GetString(HttpContext.Session, "cart");
+
+
+    if (cart != null)
+    {
+        //<div>@cart</div>
+    }
+
+    <table border="1">
+        <tr>
+            <th>Item</th>
+            <th>Count</th>
+            <th>Unit price</th>
+            <th>Total price</th>
+        </tr>
+
+
+        @foreach (ShoppingCartItem item in Model.cartItems)
+        {
+            <tr>
+                <td>
+                    @item.product.Description
+                </td>
+                <td>
+                    @item.count
+                </td>
+                <td>
+                    @item.product.Price
+                </td>
+                <td>
+                    @(item.product.Price * item.count)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+}

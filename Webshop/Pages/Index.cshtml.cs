@@ -18,7 +18,6 @@ namespace Webshop.Pages
         private myshopContext shopContext;
         public List<Product> productList { get; set; }
         public List<Customer> customerList { get; set; }
-        public List<Product> shoppingCart { get; set; }
 
         [FromQuery]
         public string productCategory { get; set; }
@@ -52,28 +51,47 @@ namespace Webshop.Pages
             customerList = (from Customer c in shopContext.Customers
                             select c).ToList();
 
-            /////////////////////
-            SessionExtensions.SetString(HttpContext.Session, "testsession", "mysessionstring");
-
+            // Shopping cart management
             if (addToCart != null)
             {
-                // get shopping cart (List) from session state
+                List<ShoppingCartItem> shoppingCart = new List<ShoppingCartItem>();
+                
+                // deserialise existing shopping cart (List) from session state
                 if (HttpContext.Session.GetString("cart") != null)
                 {
-                    shoppingCart = JsonSerializer.Deserialize<List<Product>>(HttpContext.Session.GetString("cart"));
+                    shoppingCart = JsonSerializer.Deserialize<List<ShoppingCartItem>>(HttpContext.Session.GetString("cart"));
                 }
                 
+                // query the selected product
                 var q = (from p in productList
                          where p.ProductCode == addToCart
                          select p).ToList();
 
+                // add product to cart
                 if (q.Count > 0)
                 {
-                    if (shoppingCart == null)
+                    // check if product is already in cart
+                    Product p = q[0];
+                    int index = -1;
+                    for (int i = 0; i < shoppingCart.Count; i++)
                     {
-                        shoppingCart = new List<Product>();
+                        if (shoppingCart[i].product.ProductCode == p.ProductCode)
+                        {
+                            index = i;
+                            break;
+                        }
                     }
-                    shoppingCart.Add(q[0]);
+                    
+                    if (index == -1)
+                    {
+                        // add product to cart
+                        shoppingCart.Add(new ShoppingCartItem() { product = p, count = 1 } );
+                    }
+                    else
+                    {
+                        // increment existing item in cart
+                        shoppingCart[index].count++;
+                    }
                 }
 
                 // serialise shopping cart and store in session
