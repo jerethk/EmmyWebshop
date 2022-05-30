@@ -1,0 +1,26 @@
+﻿@page
+@model Webshop.Pages.ContactModel
+@{
+}
+
+<h4>Contact form</h4>
+
+<p>
+    <a href="Index">Back to home</a>
+</p>
+
+<br />
+<form method="post">
+    <label asp-for="name">Your name: </label>
+    <input asp-for="name" type="text" />
+    <br />
+    <label asp-for="email">Your email: </label>
+    <input asp-for="email" type="email" />
+    <br />
+    <label asp-for="message">Enter your message here: </label>
+    <textarea asp-for="message" cols="40"></textarea>
+    <br />
+    <input type="submit" value="Submit" />
+</form>
+
+<p>@Model.errorMessage</p>
