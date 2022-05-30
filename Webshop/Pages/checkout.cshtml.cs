@@ -48,6 +48,32 @@ namespace Webshop.Pages
         public async Task<IActionResult> OnPost()
         {
             // Record purchase in database
+            shopContext = new myshopContext();
+            string cartJSON = HttpContext.Session.GetString("cart");
+            cartItems = JsonSerializer.Deserialize<List<ShoppingCartItem>>(cartJSON);
+
+            // Transaction
+            Transaction transaction = new Transaction();
+            transaction.Customer = this.customerId;
+            transaction.Date = DateTime.Now;
+            transaction.Amount = this.cartTotal;
+            shopContext.Transactions.Add(transaction);
+            shopContext.SaveChanges();
+
+            // Invoice items
+            foreach (ShoppingCartItem cartItem in cartItems)
+            {
+                for (int i = 0; i < cartItem.count; i++)
+                {
+                    InvoiceItem invoiceItem = new InvoiceItem();
+                    invoiceItem.Product = cartItem.product.ProductCode;
+                    // should also add sale price !!!    = cartItem.product.Price;
+                    invoiceItem.Invoice = transaction.InvoiceNo;
+                    shopContext.InvoiceItems.Add(invoiceItem);
+                }
+            }
+
+            shopContext.SaveChanges();
 
             return Redirect("Index");
         }
