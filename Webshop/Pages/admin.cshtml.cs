@@ -52,15 +52,21 @@ namespace Webshop.Pages
 
             if (this.invNumber != null)
             {
+                this.invoiceTotal = (from Transaction t in shopContext.Transactions
+                                     where t.InvoiceNo == invNumber
+                                     select t
+                                     ).ToList()[0].Amount;
+
+
                 this.invoiceItemList = (from InvoiceItem i in shopContext.InvoiceItems
                                         join Product p in shopContext.Products on i.Product equals p.ProductCode
                                         where i.Invoice == invNumber
-                                        select new InvoiceItemWithPrice() {
+                                        select new InvoiceItemWithPrice()
+                                        {
                                             productCode = i.Product,
-                                            productCost = p.Price
-                                        }
-                                        //select new InvoiceItemWithPrice(i.Product, p.Price)
-                                        ).ToList();
+                                            priceSold = i.SoldPrice,
+                                            priceCurrent = p.Price
+                                        }).ToList();
             }
 
             return Page();
@@ -70,14 +76,7 @@ namespace Webshop.Pages
     public class InvoiceItemWithPrice
     {
         public string productCode { get; set; }
-        public decimal productCost { get; set; }
-
-        public InvoiceItemWithPrice() { }
-        
-        public InvoiceItemWithPrice(string pName, decimal pCost)
-        {
-            productCode = pName;
-            productCost = pCost;
-        }
+        public decimal? priceSold { get; set; }
+        public decimal priceCurrent { get; set; }
     }
 }

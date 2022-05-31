@@ -56,17 +56,23 @@
             <table border="1">
                 <tr>
                     <th>Item</th>
-                    <th>Price</th>
+                    <th>Sold Price</th>
+                    <th>Current Price</th>
                 </tr>
 
                 @foreach (InvoiceItemWithPrice item in Model.invoiceItemList)
                 {
                     <tr>
                         <td>@item.productCode</td>
-                        <td>@item.productCost</td>
+                        <td>@item.priceSold</td>
+                        <td>@item.priceCurrent</td>
                     </tr>
                 }
 
+                <tr>
+                    <th>Total</th>
+                    <th>@Model.invoiceTotal</th>
+                </tr>
             </table>
         }
         else
