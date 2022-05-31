@@ -52,16 +52,16 @@ namespace Webshop.Pages
                             select c).ToList();
 
             // Shopping cart management
+            List<ShoppingCartItem> shoppingCart = new List<ShoppingCartItem>();
+
+            if (HttpContext.Session.GetString("cart") != null)
+            {
+                // deserialise existing shopping cart (List) from session state
+                shoppingCart = JsonSerializer.Deserialize<List<ShoppingCartItem>>(HttpContext.Session.GetString("cart"));
+            }
+
             if (addToCart != null)
             {
-                List<ShoppingCartItem> shoppingCart = new List<ShoppingCartItem>();
-                
-                // deserialise existing shopping cart (List) from session state
-                if (HttpContext.Session.GetString("cart") != null)
-                {
-                    shoppingCart = JsonSerializer.Deserialize<List<ShoppingCartItem>>(HttpContext.Session.GetString("cart"));
-                }
-                
                 // query the selected product
                 var q = (from p in productList
                          where p.ProductCode == addToCart
@@ -98,6 +98,8 @@ namespace Webshop.Pages
                 string jsonCart = JsonSerializer.Serialize(shoppingCart);
                 HttpContext.Session.SetString("cart", jsonCart);
             }
+
+            ViewData["cartCount"] = shoppingCart.Count;
 
             return Page();
         }

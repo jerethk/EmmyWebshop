@@ -40,8 +40,18 @@
                             <img src="images/emmy.png" height="250" />
                         </td>
                         <td>
-                            <a href="shoppingcart">Shopping cart</a> <br />
-                            <a href="Contact">Contact form</a>
+                            <p>
+                                <a href="shoppingcart">Shopping cart</a>
+                                @{ 
+                                    if (ViewData["cartCount"] != null)
+                                    {
+                                        <span>(@ViewData["cartCount"])</span>
+                                    }
+                                }
+                            </p>
+                            <p>
+                                <a href="Contact">Contact form</a>
+                            </p>
                         </td>
                     </tr>
                 </table>
