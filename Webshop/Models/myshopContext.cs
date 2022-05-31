@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Webshop.models
+namespace Webshop.Models
 {
     public partial class myshopContext : DbContext
     {
@@ -64,6 +64,10 @@ namespace Webshop.models
                     .HasMaxLength(50)
                     .HasColumnName("lastname");
 
+                entity.Property(e => e.Password)
+                    .HasMaxLength(30)
+                    .HasColumnName("password");
+
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .HasColumnName("phone")
@@ -99,6 +103,10 @@ namespace Webshop.models
                     .IsRequired()
                     .HasMaxLength(3)
                     .HasColumnName("product");
+
+                entity.Property(e => e.SoldPrice)
+                    .HasColumnType("decimal(5,2)")
+                    .HasColumnName("sold_price");
 
                 entity.HasOne(d => d.InvoiceNavigation)
                     .WithMany(p => p.InvoiceItems)

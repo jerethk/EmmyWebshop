@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Webshop.models
+namespace Webshop.Models
 {
     public partial class Customer
     {
@@ -21,6 +21,7 @@ namespace Webshop.models
         public string Phone { get; set; }
         public string Email { get; set; }
         public decimal Balance { get; set; }
+        public string Password { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
     }

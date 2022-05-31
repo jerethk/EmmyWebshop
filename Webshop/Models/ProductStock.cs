@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Webshop.models
+namespace Webshop.Models
 {
     public partial class ProductStock
     {
