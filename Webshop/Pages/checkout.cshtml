@@ -20,12 +20,13 @@
 <form method="post">
     <label asp-for="customerId">Select customer: </label>
     <select asp-for="customerId">
-        @foreach (models.Customer c in Model.customerList)
+        @foreach (Models.Customer c in Model.customerList)
         {
             <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
         }
     </select>
 
+    <input type="hidden" asp-for="totalPrice" />
 
     <br />
     <input type="submit" value="CHECK OUT" />

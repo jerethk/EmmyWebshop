@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using Webshop.models;
+using Webshop.Models;
 
 namespace Webshop.Pages
 {

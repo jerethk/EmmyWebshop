@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Webshop.models;
+using Webshop.Models;
 
 namespace Webshop.Pages
 {
@@ -19,6 +19,9 @@ namespace Webshop.Pages
 
         [FromForm]
         public int customerId { get; set; }
+
+        [FromForm]
+        public decimal totalPrice { get; set; }
 
         public void OnGet()
         {
@@ -34,14 +37,15 @@ namespace Webshop.Pages
                 // Load customers
                 customerList = (from Customer c in shopContext.Customers
                                 select c).ToList();
-            }
 
-            // calculate total price of cart
-            cartTotal = 0;
-            foreach (ShoppingCartItem item in cartItems)
-            {
-                decimal price = item.product.Price * item.count;
-                cartTotal += price;
+                // calculate total price of cart
+                cartTotal = 0;
+                foreach (ShoppingCartItem item in cartItems)
+                {
+                    decimal price = item.product.Price * item.count;
+                    cartTotal += price;
+                }
+                totalPrice = cartTotal;     // bind to hidden form element
             }
         }
 
@@ -56,7 +60,7 @@ namespace Webshop.Pages
             Transaction transaction = new Transaction();
             transaction.Customer = this.customerId;
             transaction.Date = DateTime.Now;
-            transaction.Amount = this.cartTotal;
+            transaction.Amount = this.totalPrice;
             shopContext.Transactions.Add(transaction);
             shopContext.SaveChanges();
 
@@ -67,7 +71,7 @@ namespace Webshop.Pages
                 {
                     InvoiceItem invoiceItem = new InvoiceItem();
                     invoiceItem.Product = cartItem.product.ProductCode;
-                    // should also add sale price !!!    = cartItem.product.Price;
+                    invoiceItem.SoldPrice = cartItem.product.Price;
                     invoiceItem.Invoice = transaction.InvoiceNo;
                     shopContext.InvoiceItems.Add(invoiceItem);
                 }
@@ -76,6 +80,9 @@ namespace Webshop.Pages
             shopContext.SaveChanges();
 
             return Redirect("Index");
+        }
+
+        private void getCart() { 
         }
     }
 }

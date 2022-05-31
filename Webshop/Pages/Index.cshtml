@@ -15,7 +15,7 @@
 <form>
     <label asp-for="customerId">Select customer: </label>
     <select asp-for="customerId">
-        @foreach (models.Customer c in Model.customerList)
+        @foreach (Models.Customer c in Model.customerList)
         {
             <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
         }
@@ -37,7 +37,7 @@
                     <th width="200px"></th>
                 </tr>
 
-                @foreach (models.Product p in Model.productList)
+                @foreach (Models.Product p in Model.productList)
                 {
                     <tr>
                         <td>@p.Description</td>

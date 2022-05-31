@@ -38,7 +38,7 @@ namespace Webshop.Pages
                 string _subject = "From Emmy's shop";
                 string _body = $"From {this.name} \n Email {this.email} \n Message \n {this.message}";
 
-                WebMail.Send(_to, _subject, _body);
+                WebMail.Send(_to, _subject, _body); 
             }
             catch (Exception e)
             {
