@@ -52,12 +52,14 @@ namespace Webshop.Pages
 
             if (this.invNumber != null)
             {
-                this.invoiceTotal = (from Transaction t in shopContext.Transactions
-                                     where t.InvoiceNo == invNumber
-                                     select t
-                                     ).ToList()[0].Amount;
+                // Get the invoice total. 
+                var q = from Transaction t in transactionList
+                        where t.InvoiceNo == invNumber
+                        select t;
+                
+                foreach (Transaction t in q) invoiceTotal = t.Amount;   // there should only be 1 item with matching invNumber
 
-
+                // Get the invoice items
                 this.invoiceItemList = (from InvoiceItem i in shopContext.InvoiceItems
                                         join Product p in shopContext.Products on i.Product equals p.ProductCode
                                         where i.Invoice == invNumber

@@ -1,0 +1,44 @@
+﻿@model Models.HeaderData
+
+<div class="container border-bottom ">
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <img src="images/shop.jpg" height="250" />
+                    <img src="images/emmy.png" height="250" />
+                </td>
+                <td>
+                    @{
+                        if (@Model.isLoggedIn)
+                        {
+                            <p>
+                                <a href="logout">Log out</a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                <a href="login">Customer login</a>
+                            </p>
+                        }
+                    }
+
+                    <p>
+                        <a href="shoppingcart">Shopping cart</a>
+                        <span>(@Model.cartItemCount)</span>
+                    </p>
+                    <p>
+                        <a href="Contact">Contact form</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <font size="2">
+            <a asp-page="admin">Admin functions</a>
+        </font>
+    </div>
+
+    <br />
+</div>

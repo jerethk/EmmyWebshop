@@ -12,10 +12,9 @@ namespace Webshop.Pages
 {
     public class checkoutModel : PageModel
     {
-        public myshopContext shopContext { get; set; }
+        private myshopContext shopContext { get; set; }
         public List<Customer> customerList { get; set; }
-        public List<ShoppingCartItem> cartItems { get; set; }
-        public decimal cartTotal { get; set; }
+        private List<ShoppingCartItem> cartItems { get; set; }
 
         [FromForm]
         public int customerId { get; set; }
@@ -39,7 +38,7 @@ namespace Webshop.Pages
                                 select c).ToList();
 
                 // calculate total price of cart
-                cartTotal = 0;
+                decimal cartTotal = 0;
                 foreach (ShoppingCartItem item in cartItems)
                 {
                     decimal price = item.product.Price * item.count;

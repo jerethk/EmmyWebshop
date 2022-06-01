@@ -11,16 +11,37 @@
 
 <br />
 <form method="post">
-    <label asp-for="name">Your name: </label>
-    <input asp-for="name" type="text" />
-    <br />
-    <label asp-for="email">Your email: </label>
-    <input asp-for="email" type="email" />
-    <br />
-    <label asp-for="message">Enter your message here: </label>
-    <textarea asp-for="message" cols="40"></textarea>
-    <br />
-    <input type="submit" value="Submit" />
+    <table cellpadding="8">
+        <tr>
+            <td>
+                <label asp-for="name">Your name: </label>
+            </td>
+            <td>
+                <input asp-for="name" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="email">Your email: </label>
+            </td>
+            <td>
+                <input asp-for="email" type="email" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="message">Enter your message here: </label>
+            </td>
+            <td>
+                <textarea asp-for="message" cols="40"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit" />
+            </td>
+        </tr>
+    </table>
 </form>
 
 <p>@Model.errorMessage</p>
