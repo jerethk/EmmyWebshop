@@ -14,10 +14,10 @@ select * from invoice_items;
 
 #alter table invoice_items add sold_price decimal(5,2);
 
-#update invoice_items set sold_price = () 
-where sold_price = 0;
+#update invoice_items set sold_price = () where sold_price = 0;
 
 select products.price from invoice_items inner join products 
 on products.product_code = invoice_items.product;
 
 update customers set email = "test@test" where customer_id = 7;
+

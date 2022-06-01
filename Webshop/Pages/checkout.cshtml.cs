@@ -10,14 +10,20 @@ using Webshop.Models;
 
 namespace Webshop.Pages
 {
+    [BindProperties]
     public class checkoutModel : PageModel
     {
         private myshopContext shopContext { get; set; }
-        public List<Customer> customerList { get; set; }
         private List<ShoppingCartItem> cartItems { get; set; }
 
-        [FromForm]
         public int customerId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string address { get; set; }
+        public string state { get; set; }
+        public string postcode { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
 
         [FromForm]
         public decimal totalPrice { get; set; }
@@ -33,10 +39,6 @@ namespace Webshop.Pages
                 // Load cart
                 cartItems = JsonSerializer.Deserialize<List<ShoppingCartItem>>(cartJSON);
 
-                // Load customers
-                customerList = (from Customer c in shopContext.Customers
-                                select c).ToList();
-
                 // calculate total price of cart
                 decimal cartTotal = 0;
                 foreach (ShoppingCartItem item in cartItems)
@@ -46,9 +48,32 @@ namespace Webshop.Pages
                 }
                 totalPrice = cartTotal;     // bind to hidden form element
             }
+
+            // customer details
+            int? id = HttpContext.Session.GetInt32("userLoggedIn");
+            if (id != null)
+            {
+                this.customerId = (int)id;
+
+                var customer = (from Customer c in shopContext.Customers
+                                where c.CustomerId == this.customerId
+                                select c).ToList()[0];
+
+                this.firstName = customer.Firstname;
+                this.lastName = customer.Lastname;
+                this.address = customer.Address;
+                this.state = customer.State;
+                this.postcode = customer.Postcode;
+                this.email = customer.Email;
+                this.phone = customer.Phone;
+            }
+            else
+            {
+                this.customerId = -1;   // guest
+            }
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost() 
         {
             try
             {
@@ -90,5 +115,6 @@ namespace Webshop.Pages
 
             return Redirect("Index");
         }
+
     }
 }

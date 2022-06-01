@@ -18,16 +18,69 @@
 
 <br />
 <form method="post">
-    <label asp-for="customerId">Select customer: </label>
-    <select asp-for="customerId">
-        @foreach (Models.Customer c in Model.customerList)
-        {
-            <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
-        }
-    </select>
-
+    <table>
+        <tr>
+            <td>
+                <label asp-for="firstName">First name: </label>
+            </td>
+            <td>
+                <input asp-for="firstName" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="lastName">Last name: </label>
+            </td>
+            <td>
+                <input asp-for="lastName" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="address" width="40">Address: </label>
+            </td>
+            <td>
+                <input asp-for="address" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="state">State: </label>
+            </td>
+            <td>
+                <input asp-for="state" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="postcode">Postcode: </label>
+            </td>
+            <td>
+                <input asp-for="postcode" type="number" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="phone">Phone: </label>
+            </td>
+            <td>
+                <input asp-for="phone" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="email">Email: </label>
+            </td>
+            <td>
+                <input asp-for="email" type="email" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="CHECK OUT" />
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" asp-for="customerId" />
     <input type="hidden" asp-for="totalPrice" />
-
-    <br />
-    <input type="submit" value="CHECK OUT" />
 </form>
