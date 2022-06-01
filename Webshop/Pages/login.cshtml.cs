@@ -21,11 +21,9 @@ namespace Webshop.Pages
         public string customerName { get; set; }
 
         private myshopContext shopContext { get; set; }
-        private List<Customer> customers { get; set; }
 
         public void OnGet()
         {
-            
         }
 
         public async Task<IActionResult> OnPost()

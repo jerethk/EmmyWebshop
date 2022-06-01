@@ -15,13 +15,18 @@ namespace Webshop.Pages
         {
             // Obtain logged in status and cart item count, and send to viewcomponent
             HeaderData headerData = new HeaderData();
-            headerData.isLoggedIn = (HttpContext.Session.GetInt32("userLoggedIn") > 0);
+            headerData.isLoggedIn = (HttpContext.Session.GetInt32("userLoggedIn") >= 0);
 
             string cartJSON = HttpContext.Session.GetString("cart");
             if (cartJSON != null)
             {
                 List<ShoppingCartItem> cart = JsonSerializer.Deserialize<List<ShoppingCartItem>>(cartJSON);
-                headerData.cartItemCount = cart.Count();
+                headerData.cartItemCount = 0;
+
+                foreach (ShoppingCartItem item in cart)
+                {
+                    headerData.cartItemCount += item.count;
+                }
             }
             else 
                 headerData.cartItemCount = 0;

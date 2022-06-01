@@ -12,16 +12,6 @@
     </p>
 </div>
 
-<form>
-    <label asp-for="customerId">Select customer: </label>
-    <select asp-for="customerId">
-        @foreach (Models.Customer c in Model.customerList)
-        {
-            <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
-        }
-    </select>
-</form>
-
 <br />
 
 <partial name="_shopmenu.cshtml" />

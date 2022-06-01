@@ -19,3 +19,5 @@ where sold_price = 0;
 
 select products.price from invoice_items inner join products 
 on products.product_code = invoice_items.product;
+
+update customers set email = "test@test" where customer_id = 7;

@@ -17,16 +17,12 @@ namespace Webshop.Pages
     {
         private myshopContext shopContext;
         public List<Product> productList { get; set; }
-        public List<Customer> customerList { get; set; }
 
         [FromQuery]
         public string productCategory { get; set; }
         
         [FromQuery]
         public string addToCart { get; set; }
-
-        [FromForm]
-        public int customerId { get; set; }
 
         private readonly ILogger<IndexModel> _logger;
 
@@ -37,7 +33,7 @@ namespace Webshop.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            // Load products from database
+            // Load products from database based on chosen category
             shopContext = new myshopContext();
             
             if (this.productCategory != null)
@@ -48,8 +44,7 @@ namespace Webshop.Pages
             }
 
             // Load customers
-            customerList = (from Customer c in shopContext.Customers
-                            select c).ToList();
+            // customerList = (from Customer c in shopContext.Customers select c).ToList();
 
             // Shopping cart management
             List<ShoppingCartItem> shoppingCart = new List<ShoppingCartItem>();
@@ -98,8 +93,6 @@ namespace Webshop.Pages
                 string jsonCart = JsonSerializer.Serialize(shoppingCart);
                 HttpContext.Session.SetString("cart", jsonCart);
             }
-
-            ViewData["cartCount"] = shoppingCart.Count;
 
             return Page();
         }

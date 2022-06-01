@@ -39,6 +39,16 @@
             }
 
         </table>
+
+        <form>
+            <label>Select customer: </label>
+            <select>
+                @foreach (Models.Customer c in Model.customerList)
+                {
+                    <option value="@c.CustomerId">@c.Firstname @c.Lastname</option>
+                }
+            </select>
+        </form>
     }
 
     if (Model.viewType == "transactions" && Model.transactionList != null)
