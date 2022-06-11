@@ -8,11 +8,14 @@ select * from transactions;
 
 select * from invoice_items;
 
-#insert into products values ("zuc", "Zucchini", "300g", 1.70, "zucchini.jpg", "fruitveg");
+#UPDATE products SET price=2.30 where product_code = "ban";
 
-#alter table customers add password varchar(30); 
+#insert into products values ("shm", "Shampoo", "400ml", 7.20, "shampoo.jpg", "bathroom");
+#insert into product_stocks values ("shm", 25);
 
-#alter table invoice_items add sold_price decimal(5,2);
+ALTER TABLE customers ADD password VARCHAR(30) DEFAULT "password"; 
+
+ALTER TABLE invoice_items add sold_price decimal(5,2) DEFAULT 0;
 
 #update invoice_items set sold_price = () where sold_price = 0;
 

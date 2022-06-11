@@ -29,7 +29,7 @@ namespace Webshop
             services.AddDistributedMemoryCache();
             services.AddSession((options) =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(5);       // session timeout
+                options.IdleTimeout = TimeSpan.FromMinutes(2);       // session timeout
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
