@@ -4,7 +4,9 @@
 <table class="container border-bottom box-shadow">
     <tr class="linkmenu">
         <td class="links" id="veg" width="120" align="center">
-            <a href="Index?productCategory=fruitveg">Veges & fruit</a>
+            Veges &amp; fruit
+            <!-- <a href="Index?productCategory=fruitveg">Veges & fruit</a> -->
+
         </td>
         <td class="links" id="dairy" width="120" align="center">
             <a href="Index?productCategory=food">Food</a>
@@ -18,3 +20,14 @@
     </tr>
 </table>
 
+<script>
+    const vegFruitLink = document.getElementById("veg");
+
+    vegFruitLink.onclick = () => {
+
+        let productList = fetch("https://localhost:5001/api/Products");
+
+        window.alert("");
+    }
+
+</script>
