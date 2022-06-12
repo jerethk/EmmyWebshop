@@ -3,6 +3,7 @@ const vegFruitLink = document.getElementById("veg");
 const foodLink = document.getElementById("food");
 const dairyLink = document.getElementById("dairy");
 const bathroomLink = document.getElementById("bath");
+const cartCount = document.getElementById("cart_count");
 
 vegFruitLink.onclick = () => fetchAndDisplayProducts("fruitveg");
 foodLink.onclick = () => fetchAndDisplayProducts("food");
@@ -43,6 +44,12 @@ function fetchAndDisplayProducts(category) {
                                     .then(response => {
                                         if (response.ok) {
                                             window.alert(`${item.description} Added to cart`);
+
+                                            // update the cart count; the API call returns the cart count
+                                            response.text().then(i => {
+                                                cartCount.innerHTML = `(${i})`;
+                                            });
+                                            
                                         }
                                     });
                             }

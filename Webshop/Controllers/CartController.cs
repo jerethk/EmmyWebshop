@@ -24,7 +24,7 @@ namespace Webshop.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void AddToCart([FromBody] string productcode)
+        public int AddToCart([FromBody] string productcode)
         {
             List<ShoppingCartItem> shoppingCart = new List<ShoppingCartItem>();
 
@@ -73,6 +73,16 @@ namespace Webshop.Controllers
             // serialise shopping cart and store in session
             string jsonCart = JsonSerializer.Serialize(shoppingCart);
             HttpContext.Session.SetString("cart", jsonCart);
+
+            // get cart item count
+            int cartCount = 0;            
+            foreach (ShoppingCartItem item in shoppingCart)
+            {
+                cartCount += item.count;
+            }
+
+            // return the cart item count
+            return cartCount;
         }
 
         // PUT api/<ValuesController>/5
