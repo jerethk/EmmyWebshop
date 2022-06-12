@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Helpers;
+//using System.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -28,6 +28,7 @@ namespace Webshop.Pages
 
             try
             {
+                /*
                 WebMail.SmtpServer = "mail.iinet.net.au";
                 WebMail.SmtpPort = 587;
                 WebMail.From = "jerethk@iinet.net.au";
@@ -38,7 +39,7 @@ namespace Webshop.Pages
                 string _subject = "From Emmy's shop";
                 string _body = $"From {this.name} \n Email {this.email} \n Message \n {this.message}";
 
-                WebMail.Send(_to, _subject, _body); 
+                WebMail.Send(_to, _subject, _body); */
             }
             catch (Exception e)
             {

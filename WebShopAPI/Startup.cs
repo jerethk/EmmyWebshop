@@ -26,6 +26,16 @@ namespace WebShopAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Add CORS policy
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy1",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://localhost:44302");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +50,8 @@ namespace WebShopAPI
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy1");      // allow CORS
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,33 +1,28 @@
 ﻿@{
 }
 
-<table class="container border-bottom box-shadow">
+<table class="container border-bottom box-shadow" style="cursor: pointer">
     <tr class="linkmenu">
         <td class="links" id="veg" width="120" align="center">
             Veges &amp; fruit
             <!-- <a href="Index?productCategory=fruitveg">Veges & fruit</a> -->
 
         </td>
-        <td class="links" id="dairy" width="120" align="center">
-            <a href="Index?productCategory=food">Food</a>
-        </td>
         <td class="links" id="food" width="120" align="center">
-            <a href="Index?productCategory=dairy">Dairy</a>
+            Food
+
+            <!-- a href="Index?productCategory=food">Food</!--a> -->
+        </td>
+        <td class="links" id="dairy" width="120" align="center">
+            Dairy
+
+            <!-- <a href="Index?productCategory=dairy">Dairy</a> -->
         </td>
         <td class="links" id="bath" width="120" align="center">
-            <a href="Index?productCategory=bathroom">Bathroom</a>
+            Bathroom
+
+            <!-- a href="Index?productCategory=bathroom">Bathroom</!--a> -->
         </td>
     </tr>
 </table>
 
-<script>
-    const vegFruitLink = document.getElementById("veg");
-
-    vegFruitLink.onclick = () => {
-
-        let productList = fetch("https://localhost:5001/api/Products");
-
-        window.alert("");
-    }
-
-</script>

@@ -56,7 +56,7 @@ namespace Webshop
 
             app.UseAuthorization();
 
-            app.UseSession();
+            app.UseSession();               // enable session state
 
             app.UseEndpoints(endpoints =>
             {
