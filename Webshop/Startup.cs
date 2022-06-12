@@ -61,6 +61,7 @@ namespace Webshop
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();     // map controllers
             });
         }
     }

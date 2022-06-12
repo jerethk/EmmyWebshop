@@ -15,20 +15,42 @@ function fetchAndDisplayProducts(category) {
 
     fetch(uri)
         .then(response => {
+            if (response.ok) {
+                response.json()
+                    .then(fetchedData => {
+                        productDisplay.innerHTML = '<table id="product_table"><tr><th width="200px">Product description</th><th width="100px">Price</th><th width="200px"></th></tr></table>';
 
-            response.json()
-                .then(fetchedData => {
-                    productDisplay.innerHTML = '<table id="product_table"><thead><tr><th width="200px">Product description</th><th width="200px">Price</th><th width="200px"></th></tr></thead></table>';
+                        const productTable = document.getElementById("product_table");
 
-                    const productTable = document.getElementById("product_table");
+                        fetchedData.forEach((item) => {
+                            var newRow = productTable.insertRow();
+                            newRow.insertCell().innerHTML = `${item.description}`;
+                            newRow.insertCell().innerHTML = `${item.price}`;
+                            newRow.insertCell().innerHTML = `<img src="./images/${item.image}" width="80">`;
 
-                    fetchedData.forEach((item) => {
-                        var newRow = productTable.insertRow();
-                        newRow.insertCell().innerHTML = `${item.description}`;
-                        newRow.insertCell().innerHTML = `${item.price}`;
-                        newRow.insertCell().innerHTML = `<img src="./images/${item.image}" width="80">`;
-                        newRow.insertCell().innerHTML = `<a href="Index?productCategory=${category}&addToCart=${item.productCode}">Add to cart</a>`;
+                            var cell = newRow.insertCell();
+                            var addToCartButton = document.createElement("input");
+                            addToCartButton.setAttribute("type", "button");
+                            addToCartButton.setAttribute("value", "Add to cart");
+
+                            addToCartButton.onclick = () => {
+                                fetch("./api/cart/", {
+                                    method: "POST",
+                                    headers: { 'Content-Type' : 'application/json' },
+                                    body: `"${item.productCode}"`
+                                })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            window.alert("Added to cart");
+                                        }
+                                    });
+                        }
+
+                            cell.insertAdjacentElement("afterbegin", addToCartButton);
+
+                            //newRow.insertCell().innerHTML = `<a href="Index?productCategory=${category}&addToCart=${item.productCode}">Add to cart</a>`;
+                        })
                     })
-                })
+            }
         });
 }
