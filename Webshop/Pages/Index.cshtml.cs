@@ -15,15 +15,6 @@ namespace Webshop.Pages
 {
     public class IndexModel : PageModel
     {
-        private myshopContext shopContext;
-        public List<Product> productList { get; set; }
-
-        [FromQuery]
-        public string productCategory { get; set; }
-        
-        [FromQuery]
-        public string addToCart { get; set; }
-
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -33,6 +24,7 @@ namespace Webshop.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
+            /*
             // Load products from database based on chosen category
             shopContext = new myshopContext();
             
@@ -93,6 +85,7 @@ namespace Webshop.Pages
                 string jsonCart = JsonSerializer.Serialize(shoppingCart);
                 HttpContext.Session.SetString("cart", jsonCart);
             }
+            */
 
             return Page();
         }

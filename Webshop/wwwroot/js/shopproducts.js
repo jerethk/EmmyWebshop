@@ -9,7 +9,7 @@ foodLink.onclick = () => fetchAndDisplayProducts("food");
 dairyLink.onclick = () => fetchAndDisplayProducts("dairy");
 bathroomLink.onclick = () => fetchAndDisplayProducts("bathroom");
 
-
+// Fetch products via Web API, and display them in table
 function fetchAndDisplayProducts(category) {
     var uri = "https://localhost:44372/api/products/" + category;
 
@@ -18,6 +18,7 @@ function fetchAndDisplayProducts(category) {
             if (response.ok) {
                 response.json()
                     .then(fetchedData => {
+                        // Create table
                         productDisplay.innerHTML = '<table id="product_table"><tr><th width="200px">Product description</th><th width="100px">Price</th><th width="200px"></th></tr></table>';
 
                         const productTable = document.getElementById("product_table");
@@ -41,14 +42,12 @@ function fetchAndDisplayProducts(category) {
                                 })
                                     .then(response => {
                                         if (response.ok) {
-                                            window.alert("Added to cart");
+                                            window.alert(`${item.description} Added to cart`);
                                         }
                                     });
-                        }
+                            }
 
                             cell.insertAdjacentElement("afterbegin", addToCartButton);
-
-                            //newRow.insertCell().innerHTML = `<a href="Index?productCategory=${category}&addToCart=${item.productCode}">Add to cart</a>`;
                         })
                     })
             }
