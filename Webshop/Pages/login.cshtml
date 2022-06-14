@@ -44,17 +44,7 @@
 <br />
 
 @{
-    if (Model.isLoginSuccessful == null)
-    {
-        <p></p>
-    }
-    else if (Model.isLoginSuccessful == true)
-    {
-        <p>
-            Hello @Model.customerName
-        </p>
-    }
-    else if (Model.isLoginSuccessful == false)
+    if (Model.isLoginSuccessful == false)
     {
         <p>
             Incorrect login details

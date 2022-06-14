@@ -18,7 +18,6 @@ namespace Webshop.Pages
         public string password { get; set; }
 
         public bool? isLoginSuccessful { get; set; }
-        public string customerName { get; set; }
 
         private myshopContext shopContext { get; set; }
 
@@ -42,7 +41,7 @@ namespace Webshop.Pages
                 }
                 else
                 {
-                    this.customerName = customerQ[0].Firstname;     // FOR TESTING
+                    //this.customerName = customerQ[0].Firstname;     // FOR TESTING
 
                     foreach (Customer c in customerQ)
                     {

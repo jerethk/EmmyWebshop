@@ -14,12 +14,20 @@
                         {
                             <p>
                                 <a href="logout">Log out</a>
+                                <br />
+                                <font size="2">
+                                    <a href="customerAccount?mode=edit">My account</a>
+                                </font>
                             </p>
                         }
                         else
                         {
                             <p>
                                 <a href="login">Customer login</a>
+                                <br />
+                                <font size="2">
+                                    <a href="customerAccount?mode=create">Create account</a>
+                                </font>
                             </p>
                         }
                     }
@@ -34,6 +42,7 @@
                 </td>
             </tr>
         </table>
+        
         <br />
         <font size="2">
             <a asp-page="admin">Admin functions</a>
