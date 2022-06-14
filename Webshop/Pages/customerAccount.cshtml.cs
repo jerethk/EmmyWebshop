@@ -39,25 +39,26 @@ namespace Webshop.Pages
                 Customer customer = null;
                 int sessionCustomerId = (int) HttpContext.Session.GetInt32("userLoggedIn");
 
-                _shopContext = new myshopContext();
-
-                var queryResult = (from Customer c in _shopContext.Customers
-                                   where c.CustomerId == sessionCustomerId
-                                   select c).ToList();
-
-                if (queryResult.Count > 0)
+                using (_shopContext = new myshopContext())
                 {
-                    customer = queryResult[0];
+                    var queryResult = (from Customer c in _shopContext.Customers
+                                       where c.CustomerId == sessionCustomerId
+                                       select c).ToList();
 
-                    this.customerId = customer.CustomerId;
-                    this.email = customer.Email;
-                    this.password = customer.Password;
-                    this.firstName = customer.Firstname;
-                    this.lastName = customer.Lastname;
-                    this.address = customer.Address;
-                    this.state = customer.State;
-                    this.postcode = customer.Postcode;
-                    this.phone = customer.Phone;
+                    if (queryResult.Count > 0)
+                    {
+                        customer = queryResult[0];
+
+                        this.customerId = customer.CustomerId;
+                        this.email = customer.Email;
+                        this.password = customer.Password;
+                        this.firstName = customer.Firstname;
+                        this.lastName = customer.Lastname;
+                        this.address = customer.Address;
+                        this.state = customer.State;
+                        this.postcode = customer.Postcode;
+                        this.phone = customer.Phone;
+                    }
                 }
             }
         }
@@ -66,60 +67,69 @@ namespace Webshop.Pages
         {
             if (this.mode == "edit")
             {
-                _shopContext = new myshopContext();
-
-                var queryResult = (from Customer c in _shopContext.Customers
-                                   where c.CustomerId == this.customerId
-                                   select c).ToList();
-
-                if (queryResult.Count > 0)
+                using (_shopContext = new myshopContext())
                 {
-                    Customer customer = queryResult[0];
-                    customer.Email = this.email;
-                    customer.Firstname = this.firstName;
-                    customer.Lastname = this.lastName;
-                    customer.Address = this.address;
-                    customer.State = this.state;
-                    customer.Postcode = this.postcode;
-                    customer.Phone = this.phone;
+                    var queryResult = (from Customer c in _shopContext.Customers
+                                       where c.CustomerId == this.customerId
+                                       select c).ToList();
 
-                    _shopContext.SaveChanges();
+                    if (queryResult.Count > 0)
+                    {
+                        Customer customer = queryResult[0];
+                        customer.Email = this.email;
+                        customer.Firstname = this.firstName;
+                        customer.Lastname = this.lastName;
+                        customer.Address = this.address;
+                        customer.State = this.state;
+                        customer.Postcode = this.postcode;
+                        customer.Phone = this.phone;
+
+                        _shopContext.SaveChanges();
+                    }
                 }
+
+                this.message = "Account details have been updated.";
             }
             else if (this.mode == "create")
             {
-                // Check if email already exists in db
-                _shopContext = new myshopContext();
-                var queryResult = (from Customer c in _shopContext.Customers
-                                   where c.Email == this.email
-                                   select c).ToList();
-
-                if (queryResult.Count > 0)
+                using (_shopContext = new myshopContext())
                 {
-                    this.message = $"The email address {this.email} is already taken. Please enter another email address.";
-                    return Page();
-                }
-                else
-                {
-                    Customer newCustomer = new Customer();
-                    newCustomer.Email = this.email;
-                    newCustomer.Firstname = this.firstName;
-                    newCustomer.Lastname = this.lastName;
-                    newCustomer.Address = this.address;
-                    newCustomer.State = this.state;
-                    newCustomer.Postcode = this.postcode;
-                    newCustomer.Phone = this.phone;
-                    newCustomer.Password = this.password;
+                    // Check if email already exists in db
+                    var queryResult = (from Customer c in _shopContext.Customers
+                                       where c.Email == this.email
+                                       select c).ToList();
 
-                    _shopContext.Customers.Add(newCustomer);
-                    _shopContext.SaveChanges();
+                    if (queryResult.Count > 0)
+                    {
+                        this.message = $"The email address {this.email} is already taken. Please enter another email address.";
+                        this.email = "";
+                        return Page();
+                    }
+                    else
+                    {
+                        Customer newCustomer = new Customer();
+                        newCustomer.Email = this.email;
+                        newCustomer.Firstname = this.firstName;
+                        newCustomer.Lastname = this.lastName;
+                        newCustomer.Address = this.address;
+                        newCustomer.State = this.state;
+                        newCustomer.Postcode = this.postcode;
+                        newCustomer.Phone = this.phone;
+                        newCustomer.Password = this.password;
 
-                    // Log the new customer in
-                    HttpContext.Session.SetInt32("userLoggedIn", newCustomer.CustomerId);
+                        _shopContext.Customers.Add(newCustomer);
+                        _shopContext.SaveChanges();
+
+                        // Log the new customer in
+                        HttpContext.Session.SetInt32("userLoggedIn", newCustomer.CustomerId);
+                    }
                 }
+
+                this.message = "Successfully created new account!";
+                this.mode = "edit";
             }
 
-            return Redirect("Index");
+            return Page();
         }
     }
 }

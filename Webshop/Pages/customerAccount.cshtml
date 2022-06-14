@@ -31,7 +31,7 @@
                 <label asp-for="firstName">First name: </label>
             </td>
             <td>
-                <input asp-for="firstName" type="text" />
+                <input asp-for="firstName" type="text" required maxlength="50" />
             </td>
         </tr>
         <tr>
@@ -39,7 +39,7 @@
                 <label asp-for="lastName">Last name: </label>
             </td>
             <td>
-                <input asp-for="lastName" type="text" />
+                <input asp-for="lastName" type="text" required maxlength="50" />
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
                 <label asp-for="address" width="40">Address: </label>
             </td>
             <td>
-                <input asp-for="address" type="text" />
+                <input asp-for="address" type="text" required maxlength="100" />
             </td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
                 <label asp-for="state">State: </label>
             </td>
             <td>
-                <input asp-for="state" type="text" />
+                <input asp-for="state" type="text" list="states" required minlength="2" maxlength="3"/>
             </td>
         </tr>
         <tr>
@@ -63,7 +63,7 @@
                 <label asp-for="postcode">Postcode: </label>
             </td>
             <td>
-                <input asp-for="postcode" type="number" />
+                <input asp-for="postcode" type="number" required min="1000" max="9999" />
             </td>
         </tr>
         <tr>
@@ -71,7 +71,7 @@
                 <label asp-for="phone">Phone: </label>
             </td>
             <td>
-                <input asp-for="phone" type="text" />
+                <input asp-for="phone" type="text" required maxlength="10" />
             </td>
         </tr>
         <tr>
@@ -79,7 +79,7 @@
                 <label asp-for="email">Email: </label>
             </td>
             <td>
-                <input asp-for="email" type="email" />
+                <input asp-for="email" type="email" required maxlength="30" />
             </td>
         </tr>
     </table>
@@ -93,7 +93,7 @@
                     <label asp-for="password">Password: </label>
                 </td>
                 <td>
-                    <input asp-for="password" type="password" />
+                    <input asp-for="password" type="password" required maxlength="30" />
                 </td>
             </tr>
         </table>
@@ -106,3 +106,15 @@
     <input type="hidden" asp-for="mode" />
     <input type="hidden" asp-for="message" />
 </form>
+
+
+<datalist id="states">
+    <option value="NSW" />
+    <option value="VIC" />
+    <option value="QLD" />
+    <option value="WA" />
+    <option value="TAS" />
+    <option value="SA" />
+    <option value="NT" />
+    <option value="ACT" />
+</datalist>
