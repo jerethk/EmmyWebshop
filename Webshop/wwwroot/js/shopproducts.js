@@ -35,6 +35,7 @@ function fetchAndDisplayProducts(category) {
                             addToCartButton.setAttribute("type", "button");
                             addToCartButton.setAttribute("value", "Add to cart");
 
+                            // This is the "add to cart" functionality for each product item
                             addToCartButton.onclick = () => {
                                 fetch("./api/cart/", {
                                     method: "POST",
@@ -46,8 +47,8 @@ function fetchAndDisplayProducts(category) {
                                             window.alert(`${item.description} Added to cart`);
 
                                             // update the cart count; the API call returns the cart count
-                                            response.text().then(i => {
-                                                cartCount.innerHTML = `(${i})`;
+                                            response.text().then(count => {
+                                                cartCount.innerHTML = `(${count})`;
                                             });
                                             
                                         }
